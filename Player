@@ -1,0 +1,64 @@
+import java.util.Random;
+
+public class Player {
+
+	private String name;
+	private int playerNumber;
+	private String playerID;
+	private Random random;
+
+	public Player() {
+		this.name = null;
+		this.playerNumber = 0;
+		this.playerID = null;
+		this.random = new Random();
+	}
+
+	public Player(String name) {
+		this.name = name;
+		this.playerID = null;
+		this.playerNumber = 0;
+		this.random = new Random();
+	}
+
+	public Player(String name, int number, String ID) {
+		this.name = name;
+		this.playerNumber = number;
+		this.random = new Random();
+		this.playerID = ID;
+	}
+
+	// used when a Player instance is a "Computer" not a real player. silly random turn 
+	void takeTurnRandom(Grid grid) {
+		int x = random.nextInt(3);
+		int y = random.nextInt(3);
+		while (grid.isOccupied(x, y)) {
+			x = random.nextInt(3);
+			y = random.nextInt(3);
+		}
+		grid.markSpace(x, y, this.playerNumber);
+	}
+
+	public int getNumber() {
+		return this.playerNumber;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public String getID() {
+		return this.playerID;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", player_number=" + playerNumber + ", player_ID=" + playerID + ", random="
+				+ random + "]";
+	}
+
+}
