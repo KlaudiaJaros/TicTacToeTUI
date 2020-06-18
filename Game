@@ -120,7 +120,7 @@ public class Game {
 
 			gameGrid.print();
 			gameStatus = gameGrid.gameOver();
-			System.out.println("status:" + gameStatus + "");
+			System.out.println("");
 		}
 
 		if (gameStatus == 3)
