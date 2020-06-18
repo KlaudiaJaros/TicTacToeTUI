@@ -1,0 +1,97 @@
+public class Grid {
+
+	private int[][] grid;
+	private int gameStatus;
+
+	public Grid() {
+		grid = new int[3][3];
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				grid[i][j] = 0;
+			}
+		}
+	}
+
+	public void print() {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (this.grid[i][j] == 1)
+					System.out.print("X");
+				else if (this.grid[i][j] == 2)
+					System.out.print("O");
+				else
+					System.out.print(" ");
+
+				if (j == 2) {
+					System.out.print("\n");
+				} else
+					System.out.print(" | ");
+
+			}
+			System.out.println("-- --- --");
+		}
+	}
+
+	// returns true, if at least one space left
+	public boolean atLeastOneLeft() {
+		boolean oneLeft = false;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (grid[i][j] == 0)
+					oneLeft = true;
+			}
+		}
+		return oneLeft;
+	}
+
+	// returns true if the given cell is occupied, otherwise false
+	public boolean isOccupied(int x, int y) {
+		if (this.grid[x][y] == 0)
+			return false;
+		else
+			return true;
+	}
+
+	// marks the given cell with a given player number
+	public void markSpace(int x, int y, int player_number) {
+		this.grid[x][y] = player_number;
+	}
+
+	// checks if the game is still on or not
+	// returns:
+	// 0 - GameOn
+	// 1 - Player 1 won
+	// 2 - Player 2 won
+	// 3 - GameOver, draw
+	public int gameOver() {
+
+		if (this.grid[0][0] != 0 && this.grid[0][0] == this.grid[0][1] && this.grid[0][1] == this.grid[0][2]) {
+			gameStatus = this.grid[0][0];
+			return gameStatus;
+		} else if (this.grid[1][0] != 0 && this.grid[1][0] == this.grid[1][1] && this.grid[1][1] == this.grid[1][2]) {
+			gameStatus = this.grid[1][0];
+			return gameStatus;
+		} else if (this.grid[2][0] != 0 && this.grid[2][0] == this.grid[2][1] && this.grid[2][1] == this.grid[2][2]) {
+			gameStatus = this.grid[2][0];
+			return gameStatus;
+		} else if (this.grid[0][0] != 0 && this.grid[0][0] == this.grid[1][0] && this.grid[1][0] == this.grid[2][0]) {
+			gameStatus = this.grid[0][0];
+			return gameStatus;
+		} else if (this.grid[0][1] != 0 && this.grid[0][1] == this.grid[1][1] && this.grid[1][1] == this.grid[2][1]) {
+			gameStatus = this.grid[0][1];
+			return gameStatus;
+		} else if (this.grid[0][2] != 0 && this.grid[0][2] == this.grid[1][2] && this.grid[1][2] == this.grid[2][2]) {
+			gameStatus = this.grid[0][2];
+			return gameStatus;
+		} else if (this.grid[0][0] != 0 && this.grid[0][0] == this.grid[1][1] && this.grid[1][1] == this.grid[2][2]) {
+			gameStatus = this.grid[0][0];
+			return gameStatus;
+		} else if (this.grid[0][2] != 0 && this.grid[0][2] == this.grid[1][1] && this.grid[1][1] == this.grid[2][0]) {
+			gameStatus = this.grid[0][2];
+			return gameStatus;
+		} else if (this.atLeastOneLeft()) {
+			return 0;
+		} else
+			return 3;
+	}
+}
