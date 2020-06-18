@@ -1,0 +1,95 @@
+import java.util.Scanner;
+
+public class TUI {
+
+	private Scanner in;
+	private Player playerOne;
+	private Player playerTwo;
+	private Game newGame;
+
+	public TUI() {
+		this.in = new Scanner(System.in);
+		this.playerOne = new Player("", 1, "X");
+		this.playerTwo = new Player("", 2, "O");
+	}
+
+	public void displayMenu() {
+		System.out.println("==================================");
+		System.out.println(" Welcome to Tic Tac Toe! \n Please choose an option below: ");
+		System.out.println("==================================");
+		System.out.println(
+				" 1 - Single Player Mode\n 2 - Multiplayer Mode\n 3 - Watch a Computer vs Computer Game\n 4 - Exit");
+		System.out.println("==================================\n");
+	}
+
+	private int readIntWithPrompt(String prompt) {
+		System.out.print(prompt);
+		int choice = 0;
+		choice = in.nextInt();
+		return choice;
+	}
+
+	private void executeChoice(int choice) {
+
+		if (choice == 1) {
+			System.out.println("Enter your name:");
+			String playerName = null;
+			playerName = in.nextLine(); // to consume \n from nextInt()
+			playerName = in.nextLine();
+			playerOne.setName(playerName);
+			playerTwo.setName("Computer");
+			playSinglePlayer(playerOne, playerTwo);
+		} else if (choice == 2) {
+			System.out.println("Enter player 1 name:");
+			String playerOneName = in.nextLine(); // to consume \n from nextInt()
+			playerOneName = in.nextLine();
+			playerOne.setName(playerOneName);
+			System.out.println("Enter player 2 name:");
+			String playerTwoName = in.nextLine();
+			playerTwo.setName(playerTwoName);
+			playMultiplayer(playerOne, playerTwo);
+		} else if (choice == 3) {
+			playerOne.setName("Lilo");
+			playerTwo.setName("Stitch");
+			playComputerGame(playerOne, playerTwo);
+		} else if (choice == 4) {
+			System.out.println("Goodbye!");
+		} else {
+			System.out.println("Enter a valid number");
+			start();
+		}
+	}
+
+	public void start() {
+		displayMenu();
+		int choice = readIntWithPrompt("Your choice:");
+		executeChoice(choice);
+	}
+
+	public void playComputerGame(Player one, Player two) {
+		System.out.println("==================================");
+		System.out.println(
+				"Welcome " + one.getName() + " and " + two.getName() + ". You are first " + one.getName() + "!");
+		newGame = new Game(one, two);
+		newGame.computerPlay();
+		start();
+	}
+
+	public void playMultiplayer(Player one, Player two) {
+		System.out.println("==================================");
+		System.out.println(
+				"Welcome " + one.getName() + " and " + two.getName() + ". You are first " + one.getName() + "!");
+		newGame = new Game(one, two);
+		newGame.multiplayer();
+		start();
+	}
+
+	public void playSinglePlayer(Player one, Player two) {
+		System.out.println("==================================");
+		System.out.println(
+				"Welcome " + one.getName() + " and " + two.getName() + ". You are first " + one.getName() + "!");
+		newGame = new Game(one, two);
+		newGame.singlePlayer();
+		start();
+	}
+}
